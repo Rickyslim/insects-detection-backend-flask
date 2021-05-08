@@ -7,6 +7,11 @@ app = Flask(__name__)
 app.secret_key = 'inetlab-insects-detection'
 
 
+@app.route('/')
+def anything():
+    return '???'
+
+
 @app.route('/api/get_insects_info/<cached>')
 @app.route('/api/get_insects_info/', defaults={'cached': 'c'})
 def count_insects_from_gallery(cached):
@@ -14,7 +19,7 @@ def count_insects_from_gallery(cached):
         print(cached)
         response = make_response(session["cached_insects_results"])
     else:
-        gallery_path = "D:\python\workspace\insects_detection\insects_imgs"
+        gallery_path = "D:\python\workspace\insects_detection\processed_imgs"
         gh_insects_info = insects_tools.green_house_insects_info(gallery_path)
         time_str = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         gh_insects_info['update_time'] = time_str
